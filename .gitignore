@@ -3,5 +3,7 @@
 npm-debug.log
 .DS_Store
 /*.env
-/uploads/*
+/uploads/fullsize/*
+/uploads/modified/*
+/uploads/thumbs/*
 /private/*
