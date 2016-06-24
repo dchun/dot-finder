@@ -3,7 +3,7 @@ var cv = require('opencv');
 function detect(image, name) {
 	var lowThresh = 50;
 	var highThresh = 125;
-	var maxArcLength;
+	var maxArcLength = 100;
 
 	var GREEN = [0, 255, 0]; // B, G, R
 	var WHITE = [255, 255, 255]; // B, G, R
@@ -19,12 +19,18 @@ function detect(image, name) {
 		  var height = im.height();
 		  if (width < 1 || height < 1) throw new Error('Image has no size');
 			
-			maxArcLength = (height / 10);
+			nw = 1000;
+			nh = (height / width) * nw;
+
+			im.resize(nw,nh);
 
 			counted = im.copy();
+
 		  im.convertGrayscale();
-		  im.gaussianBlur([11,11]);
+
 		  im_canny = im.copy();
+
+		  im_canny.gaussianBlur([11,11]);
 
 		  im_canny.canny(lowThresh, highThresh);
 

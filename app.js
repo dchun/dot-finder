@@ -5,15 +5,24 @@ var formidable = require('formidable');
 var contour = require('./contourDetector');
 var app = express();
 
-var form = "<!DOCTYPE HTML><html><body>" +
-"<form method='post' action='/upload' enctype='multipart/form-data'>" +
-"<input type='file' name='image'/>" +
-"<input type='submit' /></form>" +
-"</body></html>";
-
 app.get('/', function (req, res){
-  res.writeHead(200, {'Content-Type': 'text/html' });
-  res.end(form);
+  var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  };
+  res.sendFile('./views/form.html', options, function (err) {
+    if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    }
+    else {
+      console.log('Displaying Index');
+    }
+  });
 });
 
 // Post files
@@ -85,6 +94,14 @@ app.get('/uploads/fullsize/:file', function (req, res){
 app.get('/uploads/modified/:file', function (req, res){
   file = req.params.file;
   var img = fs.readFileSync(__dirname + "/uploads/modified/" + file);
+  res.writeHead(200, {'Content-Type': 'image/jpg' });
+  res.end(img, 'binary');
+});
+
+// Show files
+app.get('/image/:file', function (req, res){
+  file = req.params.file;
+  var img = fs.readFileSync(__dirname + "/public/imgs/" + file);
   res.writeHead(200, {'Content-Type': 'image/jpg' });
   res.end(img, 'binary');
 });
