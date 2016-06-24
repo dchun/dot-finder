@@ -89,4 +89,5 @@ app.get('/uploads/modified/:file', function (req, res){
   res.end(img, 'binary');
 });
 
-app.listen(8080);
+var port = process.env.PORT || 8080;
+app.listen(port);
