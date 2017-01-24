@@ -17,11 +17,7 @@ function detect(image, name) {
 		  if (err) reject(err);
 		  var width = im.width();
 		  var height = im.height();
-
-		  if (width < 1 || height < 1) {
-		  	throw new Error('Image has no size');
-		  	reject('Image is invalid');
-		  }
+		  if (width < 1 || height < 1) throw 'Image has no size';
 			
 			nw = 1000;
 			nh = (height / width) * nw;
