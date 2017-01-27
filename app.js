@@ -34,11 +34,14 @@ app.post('/upload', function(req, res) {
     fs.readFile(files.image.path, function (err, data) {
 
       var imageName = files.image.name
+      var imageType = files.image.type.split("/")
       /// If there's an error
       if(!imageName){
         console.log("There was an error")
         res.redirect("/");
         res.end();
+      } else if(imageType[0] != "image"){
+        res.send("Wrong file type");
       } else {
         var newPath = __dirname + "/uploads/fullsize/" + imageName;
         var thumbPath = __dirname + "/uploads/thumbs/" + imageName;

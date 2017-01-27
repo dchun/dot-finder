@@ -26,7 +26,8 @@ function detect(image, name) {
 
 			counted = im.copy();
 
-		  im.convertGrayscale();
+		  // im.convertGrayscale();
+		  im.cvtColor('CV_BGR2GRAY');
 
 		  im_canny = im.copy();
 
