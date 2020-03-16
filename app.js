@@ -5,6 +5,11 @@ var formidable = require('formidable');
 var contour = require('./contourDetector');
 var app = express();
 
+// comment out for development
+app.get('*', function(req, res) {
+  res.redirect(301, 'https://dotcounter.boopis.com' + req.url);
+});
+
 app.get('/', function (req, res){
   var options = {
     root: __dirname,
