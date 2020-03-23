@@ -9,12 +9,11 @@ var newBaseURL = process.env.NEW_BASE_URL || 'https://dotcounter.boopis.com';
 var redirectStatus = parseInt(process.env.REDIRECT_STATUS || 302);
 var env = process.env.NODE_ENV || 'development';
 
-app.get('*', function(req, res) {
+app.get('*', function(req, res, next) {
   if ((env == 'production') && (req.headers.host == 'counting-dots.herokuapp.com')) {
-    res.redirect(redirectStatus, newBaseURL + req.url);
-  } else {
-    return;
+    return res.redirect(redirectStatus, newBaseURL + req.url);
   }
+  return next();
 });
 
 app.get('/', function (req, res){
