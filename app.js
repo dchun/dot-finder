@@ -5,7 +5,7 @@ var formidable = require('formidable');
 var contour = require('./contourDetector');
 var app = express();
 
-var newBaseURL = process.env.NEW_BASE_URL || 'https://dotcounter.boopis.com/';
+var newBaseURL = process.env.NEW_BASE_URL || 'https://dotcounter.boopis.com';
 var redirectStatus = parseInt(process.env.REDIRECT_STATUS || 302);
 var env = process.env.NODE_ENV || 'development';
 
